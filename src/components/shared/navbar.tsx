@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-import { usePathname } from 'next/navigation'
-import { Phone, Menu } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { LayoutDashboard, LogOut, Menu, Phone, UserCircle } from 'lucide-react'
 import { CONTAINER_MAX_WIDTH } from '@/components/ui/custom/page-wrapper'
 import { cn } from '@/lib/utils'
 import {
@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { clearPassengerSession, getPassengerUser, PassengerUser } from '@/lib/auth'
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -25,7 +26,19 @@ const navLinks = [
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [passenger, setPassenger] = useState<PassengerUser | null>(null)
   const pathname = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    setPassenger(getPassengerUser())
+  }, [pathname])
+
+  function handleSignOut() {
+    clearPassengerSession()
+    setPassenger(null)
+    router.push('/')
+  }
 
   return (
     <header>
@@ -33,11 +46,9 @@ export default function Navbar() {
 
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-2">
-          {/* Mobile Logo */}
           <div className="md:hidden flex items-center">
             <Image src="/moblogo.png" alt="Fiki Transit Logo" width={200} height={50} className="object-contain" priority />
           </div>
-          {/* Desktop Logo */}
           <div className="hidden md:flex items-center">
             <Image src="/desklogo.png" alt="Fiki Transit Logo" width={90} height={28} className="object-contain" priority />
           </div>
@@ -62,13 +73,46 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Phone Number (Desktop) & Mobile Menu Toggle */}
-        <div className="flex items-center gap-4">
+        {/* Right side: phone + auth */}
+        <div className="flex items-center gap-3">
           <a href="tel:6087079076" className="hidden lg:flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80">
             <Phone className="h-4 w-4" />
             (608) 707-9076
           </a>
 
+          {/* Passenger auth — desktop */}
+          {passenger ? (
+            <div className="hidden lg:flex items-center gap-2">
+              <Link
+                href="/portal"
+                className={cn(
+                  "flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary cursor-pointer",
+                  pathname === '/portal' ? "border-primary text-primary" : "text-muted-foreground"
+                )}
+              >
+                <LayoutDashboard className="size-4" aria-hidden />
+                My Portal
+              </Link>
+              <button
+                onClick={handleSignOut}
+                aria-label="Sign out"
+                className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-destructive hover:text-destructive cursor-pointer"
+              >
+                <LogOut className="size-4" aria-hidden />
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden lg:flex items-center gap-1.5 rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors hover:bg-secondary/90 cursor-pointer"
+            >
+              <UserCircle className="size-4" aria-hidden />
+              Sign In
+            </Link>
+          )}
+
+          {/* Mobile menu */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger className="lg:hidden p-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer">
               <Menu className="h-6 w-6" />
@@ -99,6 +143,50 @@ export default function Navbar() {
                     </Link>
                   )
                 })}
+
+                {/* Mobile passenger auth links */}
+                <div className="border-t border-border pt-3 mt-2 space-y-2">
+                  {passenger ? (
+                    <>
+                      <Link
+                        href="/portal"
+                        className={cn(
+                          "flex items-center gap-2 text-lg font-semibold py-3 transition-all hover:text-primary",
+                          pathname === '/portal' ? "text-primary" : "text-muted-foreground"
+                        )}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <LayoutDashboard className="size-5" aria-hidden />
+                        My Portal
+                      </Link>
+                      <button
+                        onClick={() => { handleSignOut(); setIsMobileMenuOpen(false); }}
+                        className="flex items-center gap-2 text-lg font-semibold py-3 text-muted-foreground hover:text-destructive transition-colors cursor-pointer w-full text-left"
+                      >
+                        <LogOut className="size-5" aria-hidden />
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="flex items-center gap-2 text-lg font-semibold py-3 text-muted-foreground hover:text-primary transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <UserCircle className="size-5" aria-hidden />
+                        Sign In
+                      </Link>
+                      <Link
+                        href="/signup"
+                        className="flex items-center gap-2 text-lg font-semibold py-3 text-muted-foreground hover:text-primary transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Create Account
+                      </Link>
+                    </>
+                  )}
+                </div>
               </nav>
 
               <div className="mt-auto pt-6 border-t border-border">
