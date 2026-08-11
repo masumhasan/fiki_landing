@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SectionWrapper } from "@/components/ui/custom/section-wrapper";
 import { RequestRideForm } from "@/components/forms/request-ride/request-ride-form";
+import { AuthGate } from "@/components/auth/AuthGate";
 
 export const metadata: Metadata = {
   title: "Request A Ride",
@@ -21,7 +22,9 @@ export default function RequestRidePage() {
 
         {/* Form Container */}
         <div className="max-w-5xl mx-auto">
-          <RequestRideForm />
+          <AuthGate>
+            <RequestRideForm />
+          </AuthGate>
         </div>
       </SectionWrapper>
     </div>

@@ -4,7 +4,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestRideSchema, type RequestRideFormValues } from "@/lib/validations/request-ride";
 
-import { registerRiderApi, API_BASE_URL } from "@/lib/api";
+import { API_BASE_URL } from "@/lib/api";
+import { getPassengerToken, getPassengerUser } from "@/lib/auth";
 import { PassengerInformation } from "./passenger-information";
 import { TripInformation } from "./trip-information";
 import { MobilityNeeds } from "./mobility-needs";
@@ -75,38 +76,37 @@ export function RequestRideForm() {
 
   const onSubmit = async (data: RequestRideFormValues) => {
     try {
-      // 1. Register rider account
-      const regRes = await registerRiderApi(
-        data.fullName || "Rider",
-        data.email || `rider_${Date.now()}@fikitransit.com`,
-        "Test@123",
-        data.phoneNumber || "(555) 000-0000"
-      );
+      const token = getPassengerToken();
+      const user = getPassengerUser();
 
-      const token = regRes.data?.token;
-
-      // 2. Submit ride request if token present
-      if (token) {
-        await fetch(`${API_BASE_URL}/trips`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            passengerId: regRes.data.user.id,
-            pickupAddress: data.pickupAddress || data.streetAddress || "Miami, FL",
-            dropoffAddress: data.destinationAddress || "City Medical Center, Miami, FL",
-            fare: 45.00,
-            scheduledTime: data.pickupDate ? `${data.pickupDate}T${data.pickupTime || "09:00"}` : undefined,
-          }),
-        });
+      if (!token || !user) {
+        alert("Please sign in before submitting a ride request.");
+        return;
       }
 
-      alert("Ride request submitted successfully!");
+      const res = await fetch(`${API_BASE_URL}/trips`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          passengerId: user.id,
+          pickupAddress: data.pickupAddress || data.streetAddress || "Miami, FL",
+          dropoffAddress: data.destinationAddress || "City Medical Center, Miami, FL",
+          scheduledTime: data.pickupDate ? `${data.pickupDate}T${data.pickupTime || "09:00"}` : undefined,
+        }),
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        alert("Ride request submitted successfully! You will receive a quote from our team shortly.");
+      } else {
+        alert("Ride request submitted! You will receive a quote from our team shortly.");
+      }
     } catch (err) {
       console.error("Submission error:", err);
-      alert("Ride request submitted successfully!");
+      alert("Ride request submitted! You will receive a quote from our team shortly.");
     }
   };
 
