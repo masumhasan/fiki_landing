@@ -7,7 +7,11 @@ export async function registerRiderApi(name: string, email: string, password: st
     const res = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+<<<<<<< HEAD
       body: JSON.stringify({ name, email, password, phone, role: "USER" }),
+=======
+      body: JSON.stringify({ name, email, password, phone }),
+>>>>>>> 7be87a5a59ef163fe1bc612783aa7f32149c30fd
     });
     return await res.json();
   } catch {
@@ -15,6 +19,7 @@ export async function registerRiderApi(name: string, email: string, password: st
   }
 }
 
+<<<<<<< HEAD
 export async function registerDriverApi(name: string, email: string, password: string, phone?: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -41,6 +46,8 @@ export async function submitJobApplicationApi(data: Record<string, any>) {
   }
 }
 
+=======
+>>>>>>> 7be87a5a59ef163fe1bc612783aa7f32149c30fd
 export async function loginPassengerApi(email: string, password: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/login`, {
