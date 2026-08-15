@@ -70,8 +70,8 @@ export function ReferenceIdentificationSection() {
         />
       </div>
 
-      {/* Driver's License Number, SSN, Date of Birth */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Driver's License Number, Category, Expiration, SSN, Date of Birth */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Controller
           control={control}
           name="driversLicenseNumber"
@@ -81,6 +81,44 @@ export function ReferenceIdentificationSection() {
                 Drivers License Number <span className="text-destructive">*</span>
               </FieldLabel>
               <Input
+                {...field}
+                id={field.name}
+                aria-invalid={fieldState.invalid}
+              />
+              {fieldState.invalid && (
+                <FieldError errors={[fieldState.error]} />
+              )}
+            </Field>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="driverCategory"
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor={field.name}>Driver Category</FieldLabel>
+              <Input
+                {...field}
+                id={field.name}
+                aria-invalid={fieldState.invalid}
+                placeholder="CDL-A (Class A)"
+              />
+              {fieldState.invalid && (
+                <FieldError errors={[fieldState.error]} />
+              )}
+            </Field>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="licenseExpirationDate"
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor={field.name}>License Expiration Date</FieldLabel>
+              <Input
+                type="date"
                 {...field}
                 id={field.name}
                 aria-invalid={fieldState.invalid}

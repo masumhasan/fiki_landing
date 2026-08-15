@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { SectionWrapper } from "@/components/ui/custom/section-wrapper";
-import { JobApplicationForm } from "@/components/forms/job-application/job-application-form";
-import { JobApplicationModal } from "@/components/forms/job-application/job-application-modal";
+import { JobApplicationView } from "@/components/forms/job-application/job-application-view";
 
 export const metadata: Metadata = {
   title: "Driver & Career Job Application",
@@ -12,8 +11,6 @@ export const metadata: Metadata = {
 export default function JobApplicationPage() {
   return (
     <div className="bg-background min-h-screen">
-      <JobApplicationModal />
-
       <SectionWrapper bg="secondary">
         {/* Header */}
         <div className="text-center mb-12 text-background">
@@ -27,7 +24,7 @@ export default function JobApplicationPage() {
 
         {/* Form Container */}
         <div className="max-w-4xl mx-auto bg-card text-card-foreground p-6 md:p-10 rounded-3xl border border-border shadow-xs">
-          <JobApplicationForm />
+          <JobApplicationView />
         </div>
       </SectionWrapper>
     </div>

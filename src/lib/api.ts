@@ -7,11 +7,37 @@ export async function registerRiderApi(name: string, email: string, password: st
     const res = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, phone }),
+      body: JSON.stringify({ name, email, password, phone, role: "USER" }),
     });
     return await res.json();
   } catch {
     return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to connect to registration server" } };
+  }
+}
+
+export async function registerDriverApi(name: string, email: string, password: string, phone?: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password, phone, role: "DRIVER" }),
+    });
+    return await res.json();
+  } catch {
+    return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to connect to registration server" } };
+  }
+}
+
+export async function submitJobApplicationApi(data: Record<string, any>) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/landing/job-application`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return await res.json();
+  } catch {
+    return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to submit job application" } };
   }
 }
 

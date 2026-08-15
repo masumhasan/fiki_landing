@@ -99,7 +99,7 @@ export function PersonalInfoSection() {
           )}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Controller
             control={control}
             name="city"
@@ -110,6 +110,24 @@ export function PersonalInfoSection() {
                   id={field.name}
                   aria-invalid={fieldState.invalid}
                   placeholder="City"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="state"
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <Input
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder="State (e.g. Wisconsin)"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />

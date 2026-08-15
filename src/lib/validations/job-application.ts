@@ -9,6 +9,7 @@ export const jobApplicationSchema = z.object({
   streetAddress: z.string().min(1, "Street address is required"),
   streetAddress2: z.string().optional(),
   city: z.string().min(1, "City is required"),
+  state: z.string().optional(),
   zipCode: z.string().min(1, "Postal / Zip code is required"),
   country: z.string().min(1, "Country is required"),
 
@@ -55,6 +56,8 @@ export const jobApplicationSchema = z.object({
 
   // License, SSN & DOB
   driversLicenseNumber: z.string().min(1, "Driver's license number is required"),
+  driverCategory: z.string().optional(),
+  licenseExpirationDate: z.string().optional(),
   socialSecurityNumber: z.string().min(1, "Social security number is required"),
   dobMonth: z.string().min(1, "MM is required"),
   dobDay: z.string().min(1, "DD is required"),
