@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Navbar from "@/components/shared/navbar";
-import Footer from "@/components/shared/footer";
+import LayoutWrapper from "@/components/shared/layout-wrapper";
 
 const instrumentSans = Instrument_Sans({ 
   subsets: ['latin'], 
@@ -62,11 +61,9 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", instrumentSans.variable, "font-sans")}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        <main className="flex-1">
+        <LayoutWrapper>
           {children}
-        </main>
-        <Footer />
+        </LayoutWrapper>
       </body>
     </html>
   );
