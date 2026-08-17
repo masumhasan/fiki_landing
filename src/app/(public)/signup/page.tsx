@@ -1,6 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { PassengerSignupForm } from "@/components/auth/PassengerSignupForm";
 
 const portalBenefits = ["Quick Registration", "Instant Quotes", "Safe & Accessible"];
@@ -20,7 +21,7 @@ export default function PassengerSignupPage() {
         <div className="pointer-events-none absolute right-0 top-[38%] h-20 w-5 rounded-l-full bg-primary/20" />
 
         <div className="relative z-10 flex h-full flex-col px-[7%] py-[5vh]">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <span className="grid size-12 place-items-center rounded-[15px] bg-card">
               <Image src="/desklogo.png" alt="" width={48} height={48} className="size-10 object-contain" priority />
             </span>
@@ -28,7 +29,7 @@ export default function PassengerSignupPage() {
               <p className="text-xl font-bold tracking-[-0.02em] text-primary-foreground">FIKI TRANSIT</p>
               <p className="mt-1.5 text-xs font-semibold tracking-[0.16em] text-primary">PASSENGER PORTAL</p>
             </div>
-          </div>
+          </Link>
 
           <div className="mt-[11vh]">
             <h1 className="text-[clamp(2.5rem,4vw,3.75rem)] font-bold leading-[1.04] tracking-[-0.04em]">
@@ -67,7 +68,7 @@ export default function PassengerSignupPage() {
       <section className="min-h-svh max-w-full overflow-x-hidden overflow-y-auto lg:ml-[50%]">
         <div className="flex min-h-full flex-col px-5 py-5 sm:px-8 lg:px-10 lg:py-7 xl:px-14">
           {/* Mobile logo */}
-          <div className="mb-6 flex items-center gap-3 lg:hidden">
+          <Link href="/" className="mb-6 flex items-center gap-3 lg:hidden">
             <span className="grid size-11 place-items-center rounded-xl bg-muted">
               <Image src="/desklogo.png" alt="" width={48} height={48} className="size-9 object-contain" priority />
             </span>
@@ -75,7 +76,7 @@ export default function PassengerSignupPage() {
               <p className="text-lg font-bold tracking-[-0.02em]">FIKI TRANSIT</p>
               <p className="mt-1.5 text-[0.65rem] font-semibold tracking-[0.16em] text-primary">PASSENGER PORTAL</p>
             </div>
-          </div>
+          </Link>
 
           <div className="my-auto min-w-0 max-w-full">
             <div className="mx-auto w-full max-w-130 rounded-[22px] border border-border bg-card px-6 py-7 sm:px-8 sm:py-8">

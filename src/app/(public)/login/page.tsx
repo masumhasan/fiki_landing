@@ -1,6 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Suspense } from "react";
 import { PassengerLoginForm } from "@/components/auth/PassengerLoginForm";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 
 function Brand() {
   return (
-    <div className="flex items-center gap-3">
+    <Link href="/" className="flex items-center gap-3">
       <span className="grid size-12 place-items-center rounded-[15px] bg-card">
         <Image src="/desklogo.png" alt="" width={48} height={48} className="size-10 object-contain" priority />
       </span>
@@ -21,7 +22,7 @@ function Brand() {
         <p className="text-xl font-bold tracking-[-0.02em] text-primary-foreground">FIKI TRANSIT</p>
         <p className="mt-1.5 text-xs font-semibold tracking-[0.16em] text-primary">PASSENGER PORTAL</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -76,7 +77,7 @@ export default function PassengerLoginPage() {
       <section className="h-svh max-w-full overflow-x-hidden overflow-y-auto lg:ml-[50%]">
         <div className="flex min-h-full min-w-0 max-w-full flex-col px-5 py-5 sm:px-8 lg:px-10 lg:py-7 xl:px-14">
           {/* Mobile logo */}
-          <div className="mb-6 flex items-center gap-3 lg:hidden">
+          <Link href="/" className="mb-6 flex items-center gap-3 lg:hidden">
             <span className="grid size-11 place-items-center rounded-xl bg-muted">
               <Image src="/desklogo.png" alt="" width={48} height={48} className="size-9 object-contain" priority />
             </span>
@@ -84,7 +85,7 @@ export default function PassengerLoginPage() {
               <p className="text-lg font-bold tracking-[-0.02em]">FIKI TRANSIT</p>
               <p className="mt-1.5 text-[0.65rem] font-semibold tracking-[0.16em] text-primary">PASSENGER PORTAL</p>
             </div>
-          </div>
+          </Link>
 
           <div className="my-auto min-w-0 max-w-full">
             <div className="mx-auto w-full max-w-130 rounded-[22px] border border-border bg-card px-6 py-7 sm:px-8 sm:py-8">
