@@ -62,6 +62,7 @@ export const requestRideSchema = z.object({
   consentHipaa: z.boolean().refine((val) => val === true, "Required"),
 
   // Signature
+  signature: z.string().min(1, "Signature is required"),
   signatureDate: z.string().min(1, "Date is required"),
   printedName: z.string().min(2, "Printed name is required"),
   relationshipToPassenger: z.string().optional(),

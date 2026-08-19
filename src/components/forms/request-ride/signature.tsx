@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { SectionCard } from "./section-card";
 import { Car, MoveRight, PenTool } from "lucide-react";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
+import { SignaturePad } from "@/components/ui/custom/signature-pad";
 
 export function SignatureSection() {
   const { control } = useFormContext();
@@ -15,10 +16,24 @@ export function SignatureSection() {
       <div className="flex flex-col gap-8">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-full md:w-1/3 flex flex-col gap-2">
-            <div className="h-32 border-2 border-dashed border-border rounded-xl bg-muted/30 flex flex-col items-center justify-center text-muted-foreground cursor-pointer hover:bg-muted transition-colors">
-              <PenTool className="w-6 h-6 mb-2 opacity-50" />
-              <span className="text-sm font-medium">Sign here</span>
-            </div>
+            <Controller
+              control={control}
+              name="signature"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-2">
+                  <FieldLabel htmlFor={field.name}>
+                    Signature Here <span className="text-destructive">*</span>
+                  </FieldLabel>
+                  <SignaturePad
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </div>
+              )}
+            />
           </div>
 
           <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-4">
