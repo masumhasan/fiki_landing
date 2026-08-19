@@ -11,16 +11,6 @@ const mobilityOptionsList = [
   { id: "wheelchair", label: "Wheelchair" },
   { id: "walker", label: "Walker" },
   { id: "cane", label: "Cane" },
-  { id: "service-animal", label: "Service Animal" },
-  { id: "pca", label: "Personal Care Attendant" },
-  { id: "securement", label: "Wheelchair Securement" },
-  { id: "bariatric", label: "Bariatric Transport" },
-  { id: "oxygen", label: "Oxygen" },
-  { id: "folding-wc", label: "Folding Wheelchair" },
-  { id: "power-wc", label: "Power Wheelchair" },
-  { id: "escort", label: "Escort Required" },
-  { id: "visual", label: "Visual Assistance" },
-  { id: "hearing", label: "Hearing Assistance" },
 ];
 
 export function MobilityNeeds() {
