@@ -126,3 +126,14 @@ export async function respondToQuoteApi(
     return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to respond to quote" } };
   }
 }
+
+export async function getDispatchNumberApi(token: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/settings/dispatch-number`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return await res.json();
+  } catch {
+    return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to fetch dispatch number" } };
+  }
+}

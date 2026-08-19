@@ -25,7 +25,7 @@ interface Trip {
 
 const ACTIVE_STATUSES = new Set(["REQUESTED", "QUOTE_SENT", "QUOTE_COUNTERED", "QUOTE_ACCEPTED", "ACCEPTED", "DRIVER_ARRIVING", "DRIVER_ARRIVED", "IN_PROGRESS"]);
 
-function EmergencyPanel() {
+function EmergencyPanel({ dispatchNumber }: { dispatchNumber: string }) {
   return (
     <section className="rounded-2xl border border-destructive/20 bg-destructive/4 p-4">
       <div className="flex items-center gap-2 text-destructive">
@@ -39,7 +39,7 @@ function EmergencyPanel() {
         Available 24 hours, 7 days a week
       </p>
       <a
-        href="tel:+18003454825"
+        href={`tel:${dispatchNumber}`}
         className="mt-4 inline-flex h-9 w-full items-center justify-center gap-2 rounded-xl bg-destructive px-4 text-xs font-semibold text-primary-foreground transition-colors hover:bg-destructive/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-destructive"
       >
         <Phone aria-hidden="true" className="size-3.5" />
@@ -56,6 +56,7 @@ export function PassengerPortal() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [tab, setTab] = useState<"active" | "history">("active");
+  const [dispatchNumber, setDispatchNumber] = useState("+18003454825");
 
   const loadTrips = useCallback(async () => {
     const token = getPassengerToken();
@@ -63,6 +64,15 @@ export function PassengerPortal() {
 
     setLoading(true);
     setError("");
+
+    import("@/lib/api").then(({ getDispatchNumberApi }) => {
+      getDispatchNumberApi(token).then((res) => {
+        if (res.success && res.data) {
+          setDispatchNumber(res.data.dispatchNumber);
+        }
+      });
+    });
+
     const res = await getMyTripsApi(token);
     setLoading(false);
 
@@ -232,7 +242,7 @@ export function PassengerPortal() {
           </div>
 
           <aside className="space-y-4">
-            <EmergencyPanel />
+            <EmergencyPanel dispatchNumber={dispatchNumber} />
           </aside>
         </div>
       </main>
