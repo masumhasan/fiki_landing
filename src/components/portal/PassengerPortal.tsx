@@ -105,39 +105,7 @@ export function PassengerPortal() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top Nav */}
-      <header className="sticky top-0 z-40 border-b border-border bg-card/80 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/desklogo.png" alt="FIKI Transit" width={80} height={24} className="object-contain" priority />
-          </Link>
 
-          <div className="flex items-center gap-3">
-            {pendingQuotes > 0 && (
-              <span className="relative">
-                <Bell className="size-5 text-primary" aria-hidden />
-                <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-white">
-                  {pendingQuotes}
-                </span>
-              </span>
-            )}
-            <div className="hidden sm:flex items-center gap-2 text-sm">
-              <span className="flex size-8 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
-                <User className="size-4" aria-hidden />
-              </span>
-              <span className="font-medium text-foreground">{user?.name}</span>
-            </div>
-            <button
-              onClick={handleSignOut}
-              aria-label="Sign out"
-              className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-destructive hover:text-destructive cursor-pointer"
-            >
-              <LogOut className="size-3.5" aria-hidden />
-              <span className="hidden sm:inline">Sign Out</span>
-            </button>
-          </div>
-        </div>
-      </header>
 
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         {/* Welcome */}

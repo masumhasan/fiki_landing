@@ -83,6 +83,12 @@ export default function Navbar() {
           {/* Passenger auth — desktop */}
           {passenger ? (
             <div className="hidden lg:flex items-center gap-2">
+              <div className="flex items-center gap-2 text-sm mr-2">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0b2b58] text-white">
+                  <UserCircle className="h-5 w-5" aria-hidden />
+                </span>
+                <span className="font-medium text-[#0b2b58]">{passenger.name}</span>
+              </div>
               <Link
                 href="/portal"
                 className={cn(
