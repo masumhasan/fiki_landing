@@ -171,6 +171,8 @@ export function PassengerPortal() {
               </Button>
             </Link>
           </div>
+        )}
+
         <div className="grid gap-6 lg:grid-cols-[1fr_300px] items-start">
           <div className="min-w-0">
             {/* Tabs + Refresh */}
