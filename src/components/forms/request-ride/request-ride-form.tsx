@@ -91,10 +91,8 @@ export function RequestRideForm() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
+          ...data,
           passengerId: user.id,
-          pickupAddress: data.pickupAddress || data.streetAddress || "Miami, FL",
-          dropoffAddress: data.destinationAddress || "City Medical Center, Miami, FL",
-          scheduledTime: data.pickupDate ? `${data.pickupDate}T${data.pickupTime || "09:00"}` : undefined,
         }),
       });
 
