@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Bell, LogOut, RefreshCw, User } from "lucide-react";
+import { Bell, LogOut, RefreshCw, User, ShieldAlert, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuoteCard } from "@/components/portal/QuoteCard";
 import { getMyTripsApi } from "@/lib/api";
@@ -24,6 +24,30 @@ interface Trip {
 }
 
 const ACTIVE_STATUSES = new Set(["REQUESTED", "QUOTE_SENT", "QUOTE_COUNTERED", "QUOTE_ACCEPTED", "ACCEPTED", "DRIVER_ARRIVING", "DRIVER_ARRIVED", "IN_PROGRESS"]);
+
+function EmergencyPanel() {
+  return (
+    <section className="rounded-2xl border border-destructive/20 bg-destructive/4 p-4">
+      <div className="flex items-center gap-2 text-destructive">
+        <ShieldAlert aria-hidden="true" className="size-4" />
+        <h2 className="text-sm font-semibold">Emergency contact</h2>
+      </div>
+      <p className="mt-3 text-xs font-semibold text-foreground">
+        FIKI Dispatch
+      </p>
+      <p className="mt-1 text-xs text-muted-foreground">
+        Available 24 hours, 7 days a week
+      </p>
+      <a
+        href="tel:+18003454825"
+        className="mt-4 inline-flex h-9 w-full items-center justify-center gap-2 rounded-xl bg-destructive px-4 text-xs font-semibold text-primary-foreground transition-colors hover:bg-destructive/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-destructive"
+      >
+        <Phone aria-hidden="true" className="size-3.5" />
+        Call dispatch
+      </a>
+    </section>
+  );
+}
 
 export function PassengerPortal() {
   const router = useRouter();
@@ -147,9 +171,9 @@ export function PassengerPortal() {
               </Button>
             </Link>
           </div>
-        )}
-
-        {/* Tabs + Refresh */}
+        <div className="grid gap-6 lg:grid-cols-[1fr_300px] items-start">
+          <div className="min-w-0">
+            {/* Tabs + Refresh */}
         <div className="mb-5 flex items-center justify-between gap-4 flex-wrap">
           <div role="tablist" className="flex gap-1 rounded-xl bg-muted p-1">
             {(["active", "history"] as const).map((t) => (
@@ -203,6 +227,12 @@ export function PassengerPortal() {
             ))}
           </div>
         )}
+          </div>
+
+          <aside className="space-y-4">
+            <EmergencyPanel />
+          </aside>
+        </div>
       </main>
     </div>
   );
