@@ -21,7 +21,7 @@ export function JobApplicationModal({
 }: {
   onDriverSignupSuccess?: (info: { firstName: string; lastName: string; email: string; phone: string }) => void;
 }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<PassengerUser | null>(null);
 
   // Form State
@@ -371,6 +371,15 @@ export function JobApplicationModal({
                 <span>{submitting ? "Creating Driver Account..." : "Continue to Driver Application"}</span>
                 <ChevronRight className="size-4" />
               </Button>
+            </div>
+
+            <div className="pt-2 text-center">
+              <span className="text-xs text-muted-foreground">
+                Already have a driver account?{" "}
+                <Link href="/login?redirect=/job-application" className="text-secondary hover:underline font-bold">
+                  Log In
+                </Link>
+              </span>
             </div>
           </form>
         )}
