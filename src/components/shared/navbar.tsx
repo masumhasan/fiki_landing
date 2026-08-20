@@ -90,10 +90,10 @@ export default function Navbar() {
                 <span className="font-medium text-[#0b2b58]">{passenger.name}</span>
               </div>
               <Link
-                href="/portal"
+                href={passenger.role === "DRIVER" ? "/driver-portal" : "/portal"}
                 className={cn(
                   "flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary cursor-pointer",
-                  pathname === '/portal' ? "border-primary text-primary" : "text-muted-foreground"
+                  pathname === '/portal' || pathname === '/driver-portal' ? "border-primary text-primary" : "text-muted-foreground"
                 )}
               >
                 <LayoutDashboard className="size-4" aria-hidden />
@@ -155,10 +155,10 @@ export default function Navbar() {
                   {passenger ? (
                     <>
                       <Link
-                        href="/portal"
+                        href={passenger.role === "DRIVER" ? "/driver-portal" : "/portal"}
                         className={cn(
                           "flex items-center gap-2 text-lg font-semibold py-3 transition-all hover:text-primary",
-                          pathname === '/portal' ? "text-primary" : "text-muted-foreground"
+                          pathname === '/portal' || pathname === '/driver-portal' ? "text-primary" : "text-muted-foreground"
                         )}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >

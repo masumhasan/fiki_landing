@@ -199,10 +199,10 @@ export function JobApplicationForm({
         </div>
         <div className="pt-4">
           <Link
-            href="/"
+            href="/driver-portal"
             className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-secondary text-secondary-foreground font-bold text-sm hover:bg-secondary/90 transition-colors"
           >
-            Return to Home Page
+            Go to Driver Dashboard
           </Link>
         </div>
       </div>

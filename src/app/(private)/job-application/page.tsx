@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SectionWrapper } from "@/components/ui/custom/section-wrapper";
 import { JobApplicationView } from "@/components/forms/job-application/job-application-view";
+import { DriverAuthGate } from "@/components/auth/DriverAuthGate";
 
 export const metadata: Metadata = {
   title: "Driver & Career Job Application",
@@ -24,7 +25,9 @@ export default function JobApplicationPage() {
 
         {/* Form Container */}
         <div className="max-w-4xl mx-auto bg-card text-card-foreground p-6 md:p-10 rounded-3xl border border-border shadow-xs">
-          <JobApplicationView />
+          <DriverAuthGate>
+            <JobApplicationView />
+          </DriverAuthGate>
         </div>
       </SectionWrapper>
     </div>

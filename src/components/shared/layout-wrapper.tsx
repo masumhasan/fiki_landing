@@ -6,7 +6,11 @@ import Footer from "@/components/shared/footer";
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isSplash = pathname === "/login" || pathname === "/signup";
+  const isSplash =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/driver-login" ||
+    pathname === "/driver-signup";
 
   return (
     <>
