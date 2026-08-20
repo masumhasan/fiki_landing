@@ -83,6 +83,7 @@ export function JobApplicationForm({
       dobYear: "",
 
       signature: "",
+      bidForm: "",
     },
   });
 
@@ -165,6 +166,7 @@ export function JobApplicationForm({
       socialSecurityNumber: data.socialSecurityNumber,
       dateOfBirth: `${data.dobMonth}/${data.dobDay}/${data.dobYear}`,
       signature: data.signature,
+      bidForm: data.bidForm,
     });
 
     setSubmitting(false);

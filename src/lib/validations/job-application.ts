@@ -65,6 +65,7 @@ export const jobApplicationSchema = z.object({
 
   // Signature
   signature: z.string().min(1, "Signature is required"),
+  bidForm: z.string().optional(),
 });
 
 export type JobApplicationFormValues = z.infer<typeof jobApplicationSchema>;
