@@ -138,7 +138,8 @@ export function JobApplicationForm({
       howDidYouHear: data.howDidYouHear,
 
       authorizedInUS: data.authorizedInUS,
-      felonyConviction: data.felonyConviction,
+      felonyConviction: data.felonyConviction ? "yes" : "no",
+      felonyExplanation: data.felonyConviction || "",
 
       highSchool: data.highSchool,
       highSchoolGraduated: data.highSchoolGraduated,
