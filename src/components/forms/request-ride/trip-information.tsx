@@ -181,31 +181,216 @@ export function TripInformation() {
 
         {/* DYNAMIC CONTENT AREA BASED ON TRIP TYPE & SCHEDULE */}
 
-        {/* MODE A: ROUND TRIP */}
-        {isRoundTrip ? (
-          <div className="bg-muted/30 border border-border p-6 rounded-2xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left Column: Outbound Trip */}
-              <div className="flex flex-col gap-6">
-                <div className="inline-flex">
-                  <span className="bg-action/10 text-action text-xs font-semibold px-3 py-1 rounded-md uppercase tracking-wider">
-                    OUTBOUND TRIP
-                  </span>
-                </div>
+        {/* SECTION 1: RECURRING TRANSPORTATION DETAILS (when schedule === 'recurring') */}
+        {isRecurring && (
+          <div className="bg-muted/30 border border-border p-6 rounded-2xl flex flex-col gap-6">
+            <div className="inline-flex">
+              <span className="bg-action/10 text-action text-xs font-semibold px-3 py-1 rounded-md uppercase tracking-wider">
+                RECURRING TRANSPORTATION DETAILS
+              </span>
+            </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Controller
+                control={control}
+                name="recurringStartDate"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      Start Date <span className="text-destructive">*</span>
+                    </FieldLabel>
+                    <Input
+                      type="date"
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="recurringEndDate"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      End Date (Optional)
+                    </FieldLabel>
+                    <Input
+                      type="date"
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </div>
+
+            {/* Days of Week Selection */}
+            <Controller
+              control={control}
+              name="recurringDays"
+              render={({ field, fieldState }) => {
+                const selectedDays: string[] = field.value || [];
+                const toggleDay = (dayId: string) => {
+                  if (selectedDays.includes(dayId)) {
+                    field.onChange(selectedDays.filter((d) => d !== dayId));
+                  } else {
+                    field.onChange([...selectedDays, dayId]);
+                  }
+                };
+
+                return (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel>Days of Week</FieldLabel>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {weekDays.map((day) => {
+                        const isSelected = selectedDays.includes(day.id);
+                        return (
+                          <button
+                            key={day.id}
+                            type="button"
+                            onClick={() => toggleDay(day.id)}
+                            className={`px-4 py-2 text-xs font-medium rounded-xl border transition-colors cursor-pointer ${
+                              isSelected
+                                ? "border-action bg-action/10 text-foreground font-semibold"
+                                : "border-border hover:bg-muted text-muted-foreground"
+                            }`}
+                          >
+                            {day.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                );
+              }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Controller
+                control={control}
+                name="recurringPickupTime"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      Recurring Pickup Time <span className="text-destructive">*</span>
+                    </FieldLabel>
+                    <Input
+                      type="time"
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="recurringAppointmentTime"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      Recurring Appointment Time
+                    </FieldLabel>
+                    <Input
+                      type="time"
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* SECTION 2: TRIP ADDRESS & TIME DETAILS */}
+        <div className="bg-muted/30 border border-border p-6 rounded-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            {/* Left Column: Outbound / Main Trip Details */}
+            <div className="flex flex-col gap-6">
+              <div className="inline-flex">
+                <span className="bg-action/10 text-action text-xs font-semibold px-3 py-1 rounded-md uppercase tracking-wider">
+                  {isRoundTrip ? "OUTBOUND TRIP" : "TRIP DETAILS"}
+                </span>
+              </div>
+
+              <Controller
+                control={control}
+                name="pickupAddress"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      Pickup Address <span className="text-destructive">*</span>
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Enter pickup address"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="destinationAddress"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      Destination Address <span className="text-destructive">*</span>
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Enter destination address"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Controller
                   control={control}
-                  name="pickupAddress"
+                  name="pickupDate"
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor={field.name}>
-                        Pickup Address
+                        Pickup Date <span className="text-destructive">*</span>
                       </FieldLabel>
                       <Input
+                        type="date"
                         {...field}
                         id={field.name}
                         aria-invalid={fieldState.invalid}
-                        placeholder="Enter pickup address"
                       />
                       {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
@@ -216,72 +401,11 @@ export function TripInformation() {
 
                 <Controller
                   control={control}
-                  name="destinationAddress"
+                  name="pickupTime"
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor={field.name}>
-                        Destination Address
-                      </FieldLabel>
-                      <Input
-                        {...field}
-                        id={field.name}
-                        aria-invalid={fieldState.invalid}
-                        placeholder="Enter destination address"
-                      />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Controller
-                    control={control}
-                    name="pickupDate"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>Pickup Date</FieldLabel>
-                        <Input
-                          type="date"
-                          {...field}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    )}
-                  />
-
-                  <Controller
-                    control={control}
-                    name="pickupTime"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>Pickup Time</FieldLabel>
-                        <Input
-                          type="time"
-                          {...field}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    )}
-                  />
-                </div>
-
-                <Controller
-                  control={control}
-                  name="appointmentTime"
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        Appointment Time
+                        Pickup Time <span className="text-destructive">*</span>
                       </FieldLabel>
                       <Input
                         type="time"
@@ -297,7 +421,30 @@ export function TripInformation() {
                 />
               </div>
 
-              {/* Right Column: Return Trip */}
+              <Controller
+                control={control}
+                name="appointmentTime"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>
+                      Appointment Time (Optional)
+                    </FieldLabel>
+                    <Input
+                      type="time"
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            </div>
+
+            {/* Right Column: Return Trip Details (when isRoundTrip === true) */}
+            {isRoundTrip ? (
               <div className="flex flex-col gap-6">
                 <div className="inline-flex">
                   <span className="bg-action/10 text-action text-xs font-semibold px-3 py-1 rounded-md uppercase tracking-wider">
@@ -410,278 +557,40 @@ export function TripInformation() {
                   )}
                 />
               </div>
-            </div>
-          </div>
-        ) : (
-          /* MODE B: ONE-WAY TRIP */
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            {/* Left Column: Trip Details */}
-            <div className="flex flex-col gap-6">
-              <div className="inline-flex">
-                <span className="bg-action/10 text-action text-xs font-semibold px-3 py-1 rounded-md uppercase tracking-wider">
-                  TRIP DETAILS
-                </span>
-              </div>
-
-              <Controller
-                control={control}
-                name="pickupAddress"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Pickup Address <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id={field.name}
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Enter pickup address"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-
-              <Controller
-                control={control}
-                name="destinationAddress"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Destination Address <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id={field.name}
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Enter destination address"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Controller
-                  control={control}
-                  name="pickupDate"
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        Pickup Date <span className="text-destructive">*</span>
-                      </FieldLabel>
-                      <Input
-                        type="date"
-                        {...field}
-                        id={field.name}
-                        aria-invalid={fieldState.invalid}
-                      />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-
-                <Controller
-                  control={control}
-                  name="pickupTime"
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={field.name}>
-                        Pickup Time <span className="text-destructive">*</span>
-                      </FieldLabel>
-                      <Input
-                        type="time"
-                        {...field}
-                        id={field.name}
-                        aria-invalid={fieldState.invalid}
-                      />
-                      {fieldState.invalid && (
-                        <FieldError errors={[fieldState.error]} />
-                      )}
-                    </Field>
-                  )}
-                />
-              </div>
-
-              <Controller
-                control={control}
-                name="appointmentTime"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Appointment Time (Optional)
-                    </FieldLabel>
-                    <Input
-                      type="time"
-                      {...field}
-                      id={field.name}
-                      aria-invalid={fieldState.invalid}
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-            </div>
-
-            {/* Right Column: Recurring Transportation Details OR Placeholder Box */}
-            {isRecurring ? (
+            ) : (
+              /* Additional Notes for One-Way Trip */
               <div className="flex flex-col gap-6">
                 <div className="inline-flex">
                   <span className="bg-action/10 text-action text-xs font-semibold px-3 py-1 rounded-md uppercase tracking-wider">
-                    RECURRING TRANSPORTATION DETAILS
+                    ADDITIONAL INFORMATION
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Controller
-                    control={control}
-                    name="recurringStartDate"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          Start Date <span className="text-destructive">*</span>
-                        </FieldLabel>
-                        <Input
-                          type="date"
-                          {...field}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    )}
-                  />
-
-                  <Controller
-                    control={control}
-                    name="recurringEndDate"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          End Date (Optional)
-                        </FieldLabel>
-                        <Input
-                          type="date"
-                          {...field}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    )}
-                  />
-                </div>
-
-                {/* Days of Week */}
                 <Controller
                   control={control}
-                  name="recurringDays"
-                  render={({ field, fieldState }) => {
-                    const selectedDays: string[] = field.value || [];
-                    const toggleDay = (dayId: string) => {
-                      if (selectedDays.includes(dayId)) {
-                        field.onChange(selectedDays.filter((d) => d !== dayId));
-                      } else {
-                        field.onChange([...selectedDays, dayId]);
-                      }
-                    };
-
-                    return (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel>Days of Week</FieldLabel>
-                        <div className="flex flex-wrap gap-2 pt-1">
-                          {weekDays.map((day) => {
-                            const isSelected = selectedDays.includes(day.id);
-                            return (
-                              <button
-                                key={day.id}
-                                type="button"
-                                onClick={() => toggleDay(day.id)}
-                                className={`px-4 py-2 text-xs font-medium rounded-xl border transition-colors cursor-pointer ${
-                                  isSelected
-                                    ? "border-action bg-action/10 text-foreground font-semibold"
-                                    : "border-border hover:bg-muted text-muted-foreground"
-                                }`}
-                              >
-                                {day.label}
-                              </button>
-                            );
-                          })}
-                        </div>
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    );
-                  }}
+                  name="driverNotes"
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        Driver Notes (Optional)
+                      </FieldLabel>
+                      <Textarea
+                        {...field}
+                        id={field.name}
+                        aria-invalid={fieldState.invalid}
+                        rows={6}
+                        placeholder="Any special instructions, gate codes, or driver notes..."
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
                 />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Controller
-                    control={control}
-                    name="recurringPickupTime"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          Pickup Time <span className="text-destructive">*</span>
-                        </FieldLabel>
-                        <Input
-                          type="time"
-                          {...field}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    )}
-                  />
-
-                  <Controller
-                    control={control}
-                    name="recurringAppointmentTime"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>
-                          Appointment Time
-                        </FieldLabel>
-                        <Input
-                          type="time"
-                          {...field}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    )}
-                  />
-                </div>
-              </div>
-            ) : (
-              /* Placeholder box when One-Way + One-Time is selected */
-              <div className="min-h-90 flex items-center justify-center p-8 rounded-2xl border border-dashed border-border bg-muted/20 text-center">
-                <p className="text-muted-foreground text-sm">
-                  Select &quot;Recurring Transportation&quot; to fill these details.
-                </p>
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </SectionCard>
   );
