@@ -24,14 +24,14 @@ export const requestRideSchema = z.object({
   destinationAddress: z.string().min(5, "Destination address is required"),
   pickupDate: z.string().min(1, "Pickup date is required"),
   pickupTime: z.string().min(1, "Pickup time is required"),
-  appointmentTime: z.string().optional(),
+  appointmentTime: z.string().optional().or(z.literal("")).or(z.null()),
 
   // Recurring Transportation Details
   recurringStartDate: z.string().optional(),
   recurringEndDate: z.string().optional(),
   recurringDays: z.array(z.string()).optional(),
   recurringPickupTime: z.string().optional(),
-  recurringAppointmentTime: z.string().optional(),
+  recurringAppointmentTime: z.string().optional().or(z.literal("")).or(z.null()),
 
   // Return Trip Details (Round Trip)
   returnPickupAddress: z.string().optional(),

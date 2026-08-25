@@ -278,7 +278,7 @@ export function TripInformation() {
               }}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
               <Controller
                 control={control}
                 name="recurringPickupTime"
@@ -286,27 +286,6 @@ export function TripInformation() {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel htmlFor={field.name}>
                       Recurring Pickup Time <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Input
-                      type="time"
-                      {...field}
-                      id={field.name}
-                      aria-invalid={fieldState.invalid}
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-
-              <Controller
-                control={control}
-                name="recurringAppointmentTime"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Recurring Appointment Time
                     </FieldLabel>
                     <Input
                       type="time"
@@ -420,27 +399,6 @@ export function TripInformation() {
                   )}
                 />
               </div>
-
-              <Controller
-                control={control}
-                name="appointmentTime"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Appointment Time (Optional)
-                    </FieldLabel>
-                    <Input
-                      type="time"
-                      {...field}
-                      id={field.name}
-                      aria-invalid={fieldState.invalid}
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
             </div>
 
             {/* Right Column: Return Trip Details (when isRoundTrip === true) */}

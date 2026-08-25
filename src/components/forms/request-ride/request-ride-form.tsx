@@ -37,13 +37,11 @@ export function RequestRideForm() {
       destinationAddress: "",
       pickupDate: "",
       pickupTime: "",
-      appointmentTime: "",
 
       recurringStartDate: "",
       recurringEndDate: "",
       recurringDays: [] as string[],
       recurringPickupTime: "",
-      recurringAppointmentTime: "",
 
       returnPickupAddress: "",
       returnDestinationAddress: "",
