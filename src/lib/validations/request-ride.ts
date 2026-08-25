@@ -9,10 +9,10 @@ export const requestRideSchema = z.object({
   }),
   phoneNumber: z.string().min(10, "Valid phone number is required"),
   email: z.string().email("Invalid email address").optional().or(z.literal("")),
-  streetAddress: z.string().min(5, "Street address is required"),
-  city: z.string().min(2, "City is required"),
-  state: z.string().min(2, "State is required"),
-  zipCode: z.string().min(5, "Zip code is required"),
+  streetAddress: z.string().optional().or(z.literal("")),
+  city: z.string().optional().or(z.literal("")),
+  state: z.string().optional().or(z.literal("")),
+  zipCode: z.string().optional().or(z.literal("")),
   emergencyContactName: z.string().min(2, "Emergency contact name is required"),
   emergencyContactPhone: z.string().min(10, "Emergency contact phone is required"),
   relationship: z.string().min(1, "Relationship is required"),
@@ -63,7 +63,7 @@ export const requestRideSchema = z.object({
 
   // Signature
   signature: z.string().min(1, "Signature is required"),
-  signatureDate: z.string().min(1, "Date is required"),
+  signatureDate: z.string().optional().or(z.literal("")),
   printedName: z.string().min(2, "Printed name is required"),
   relationshipToPassenger: z.string().optional(),
 });

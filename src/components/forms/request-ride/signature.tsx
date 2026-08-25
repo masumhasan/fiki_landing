@@ -36,27 +36,7 @@ export function SignatureSection() {
             />
           </div>
 
-          <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Controller
-              control={control}
-              name="signatureDate"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>
-                    Date <span className="text-destructive">*</span>
-                  </FieldLabel>
-                  <Input
-                    type="date"
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
+          <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <Controller
               control={control}
