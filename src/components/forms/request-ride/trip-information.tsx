@@ -193,7 +193,7 @@ export function TripInformation() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Controller
                 control={control}
-                name="recurringStartDate"
+                name="startDate"
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel htmlFor={field.name}>
@@ -214,11 +214,11 @@ export function TripInformation() {
 
               <Controller
                 control={control}
-                name="recurringEndDate"
+                name="endDate"
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel htmlFor={field.name}>
-                      End Date (Optional)
+                      End Date
                     </FieldLabel>
                     <Input
                       type="date"
@@ -278,28 +278,7 @@ export function TripInformation() {
               }}
             />
 
-            <div>
-              <Controller
-                control={control}
-                name="recurringPickupTime"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>
-                      Recurring Pickup Time <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Input
-                      type="time"
-                      {...field}
-                      id={field.name}
-                      aria-invalid={fieldState.invalid}
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-            </div>
+
           </div>
         )}
 
@@ -359,11 +338,11 @@ export function TripInformation() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Controller
                   control={control}
-                  name="pickupDate"
+                  name="startDate"
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor={field.name}>
-                        Pickup Date <span className="text-destructive">*</span>
+                        Start Date <span className="text-destructive">*</span>
                       </FieldLabel>
                       <Input
                         type="date"
@@ -377,6 +356,29 @@ export function TripInformation() {
                     </Field>
                   )}
                 />
+
+                {(isRoundTrip || isRecurring) && (
+                  <Controller
+                    control={control}
+                    name="endDate"
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor={field.name}>
+                          End Date <span className="text-destructive">*</span>
+                        </FieldLabel>
+                        <Input
+                          type="date"
+                          {...field}
+                          id={field.name}
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                )}
 
                 <Controller
                   control={control}
@@ -452,33 +454,14 @@ export function TripInformation() {
                   )}
                 />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Controller
-                    control={control}
-                    name="returnDate"
-                    render={({ field, fieldState }) => (
-                      <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>Return Date</FieldLabel>
-                        <Input
-                          type="date"
-                          {...field}
-                          id={field.name}
-                          aria-invalid={fieldState.invalid}
-                        />
-                        {fieldState.invalid && (
-                          <FieldError errors={[fieldState.error]} />
-                        )}
-                      </Field>
-                    )}
-                  />
-
+                <div>
                   <Controller
                     control={control}
                     name="returnPickupTime"
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
                         <FieldLabel htmlFor={field.name}>
-                          Return Pickup Time
+                          Return Pickup Time <span className="text-destructive">*</span>
                         </FieldLabel>
                         <Input
                           type="time"

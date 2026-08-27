@@ -35,6 +35,8 @@ export function RequestRideForm() {
       schedule: "one-time" as const,
       pickupAddress: "",
       destinationAddress: "",
+      startDate: "",
+      endDate: "",
       pickupDate: "",
       pickupTime: "",
 

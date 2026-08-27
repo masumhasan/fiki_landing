@@ -22,7 +22,9 @@ export const requestRideSchema = z.object({
   schedule: z.enum(["one-time", "recurring"]),
   pickupAddress: z.string().min(5, "Pickup address is required"),
   destinationAddress: z.string().min(5, "Destination address is required"),
-  pickupDate: z.string().min(1, "Pickup date is required"),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  pickupDate: z.string().optional(),
   pickupTime: z.string().min(1, "Pickup time is required"),
   appointmentTime: z.string().optional().or(z.literal("")).or(z.null()),
 
