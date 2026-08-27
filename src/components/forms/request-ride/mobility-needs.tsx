@@ -11,6 +11,7 @@ const mobilityOptionsList = [
   { id: "wheelchair", label: "Wheelchair" },
   { id: "walker", label: "Walker" },
   { id: "cane", label: "Cane" },
+  { id: "hand-to-hand", label: "Hand to Hand" },
 ];
 
 export function MobilityNeeds() {
