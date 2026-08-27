@@ -1,12 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { SectionCard } from "./section-card";
 import { useFormContext, Controller } from "react-hook-form";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
@@ -178,26 +171,14 @@ export function PassengerInformation() {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>
-                  Relationship <span className="text-destructive">*</span>
+                  Relationship to Passenger <span className="text-destructive">*</span>
                 </FieldLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <SelectTrigger
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  >
-                    <SelectValue placeholder="Select relationship" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="parent">Parent</SelectItem>
-                    <SelectItem value="spouse">Spouse</SelectItem>
-                    <SelectItem value="child">Child</SelectItem>
-                    <SelectItem value="sibling">Sibling</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Input
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder="e.g. Parent, Self, Spouse"
+                />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
