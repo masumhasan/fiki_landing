@@ -149,11 +149,7 @@ export const nextServerFetch = async <T>(
   } = options;
 
   const baseUrl =
-    process.env.BASE_API_URL ?? process.env.NEXT_PUBLIC_BASE_API;
-
-  if (!baseUrl) {
-    throw new Error("BASE_API_URL is not defined");
-  }
+    process.env.BASE_API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? process.env.NEXT_PUBLIC_BASE_API ?? "http://localhost:5000/api/v1";
 
   const normalizedMethod = method.toUpperCase();
   const headers = new Headers(customHeaders);

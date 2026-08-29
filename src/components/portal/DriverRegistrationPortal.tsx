@@ -298,7 +298,7 @@ export function DriverRegistrationPortal() {
                           )}
 
                           <div className="pt-2">
-                            <a href="http://localhost:3002" target="_blank" rel="noopener noreferrer">
+                            <a href={process.env.NEXT_PUBLIC_DRIVER_PORTAL_URL || "http://localhost:3002"} target="_blank" rel="noopener noreferrer">
                               <Button className="rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold px-6 h-11 flex items-center gap-2">
                                 <span>Launch Driver Portal</span>
                                 <ExternalLink className="size-4" />
