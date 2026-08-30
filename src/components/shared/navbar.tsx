@@ -40,6 +40,9 @@ export default function Navbar() {
     router.push('/')
   }
 
+  const isPortalPage = pathname === '/portal' || pathname === '/driver-portal'
+  const visibleNavLinks = isPortalPage ? [] : navLinks
+
   return (
     <header>
       <div className={`container mx-auto ${CONTAINER_MAX_WIDTH} flex h-20 items-center justify-between px-4 md:px-6`}>
@@ -56,7 +59,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6">
-          {navLinks.map((link) => {
+          {visibleNavLinks.map((link) => {
             const isActive = pathname === link.href
             return (
               <Link
@@ -75,10 +78,12 @@ export default function Navbar() {
 
         {/* Right side: phone + auth */}
         <div className="flex items-center gap-3">
-          <a href="tel:6087079076" className="hidden lg:flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80">
-            <Phone className="h-4 w-4" />
-            (608) 707-9076
-          </a>
+          {!isPortalPage && (
+            <a href="tel:6087079076" className="hidden lg:flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80">
+              <Phone className="h-4 w-4" />
+              (608) 707-9076
+            </a>
+          )}
 
           {/* Passenger auth — desktop */}
           {passenger ? (
@@ -133,7 +138,7 @@ export default function Navbar() {
               </SheetHeader>
 
               <nav className="flex flex-col space-y-2 flex-1 mt-4">
-                {navLinks.map((link) => {
+                {visibleNavLinks.map((link) => {
                   const isActive = pathname === link.href
                   return (
                     <Link
@@ -195,15 +200,17 @@ export default function Navbar() {
                 </div>
               </nav>
 
-              <div className="mt-auto pt-6 border-t border-border">
-                <a
-                  href="tel:6087079076"
-                  className="flex items-center justify-center gap-2 w-full text-base font-bold text-primary bg-primary/10 py-4 rounded-lg hover:bg-primary/20 transition-colors"
-                >
-                  <Phone className="h-5 w-5" />
-                  (608) 707-9076
-                </a>
-              </div>
+              {!isPortalPage && (
+                <div className="mt-auto pt-6 border-t border-border">
+                  <a
+                    href="tel:6087079076"
+                    className="flex items-center justify-center gap-2 w-full text-base font-bold text-primary bg-primary/10 py-4 rounded-lg hover:bg-primary/20 transition-colors"
+                  >
+                    <Phone className="h-5 w-5" />
+                    (608) 707-9076
+                  </a>
+                </div>
+              )}
             </SheetContent>
           </Sheet>
         </div>

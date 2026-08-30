@@ -4,9 +4,7 @@ export const requestRideSchema = z.object({
   // Passenger Information
   fullName: z.string().min(2, "Full name is required"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
-  confirmDob: z.boolean().refine((val) => val === true, {
-    message: "You must confirm the date of birth",
-  }),
+  confirmDob: z.boolean().optional(),
   phoneNumber: z.string().min(10, "Valid phone number is required"),
   email: z.string().email("Invalid email address").optional().or(z.literal("")),
   streetAddress: z.string().optional().or(z.literal("")),

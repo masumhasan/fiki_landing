@@ -20,7 +20,6 @@ export function RequestRideForm() {
     defaultValues: {
       fullName: "",
       dateOfBirth: "",
-      confirmDob: false,
       phoneNumber: "",
       email: "",
       streetAddress: "",

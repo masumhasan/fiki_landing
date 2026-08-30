@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { SectionCard } from "./section-card";
 import { useFormContext, Controller } from "react-hook-form";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
@@ -45,26 +44,6 @@ export function PassengerInformation() {
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
-                />
-
-                <Controller
-                  control={control}
-                  name="confirmDob"
-                  render={({ field: confirmField }) => (
-                    <div className="flex items-center space-x-2 mt-2">
-                      <Checkbox
-                        id={confirmField.name}
-                        checked={confirmField.value}
-                        onCheckedChange={confirmField.onChange}
-                      />
-                      <label
-                        htmlFor={confirmField.name}
-                        className="text-xs text-muted-foreground leading-none"
-                      >
-                        I confirm this is the passenger&apos;s correct date of birth
-                      </label>
-                    </div>
-                  )}
                 />
 
                 {fieldState.invalid && (
