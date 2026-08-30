@@ -8,7 +8,6 @@ const navLinks = [
   { name: 'Our Service Area', href: '/service-area' },
   { name: 'Request A Ride', href: '/request-ride' },
   { name: 'Job Application Form', href: '/job-application' },
-  { name: 'BID', href: '/bid' },
 ];
 
 export default function Footer() {

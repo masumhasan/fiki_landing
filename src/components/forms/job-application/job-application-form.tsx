@@ -84,6 +84,7 @@ export function JobApplicationForm({
 
       signature: "",
       bidForm: "",
+      authorizeBackgroundCheck: false,
     },
   });
 
@@ -167,6 +168,7 @@ export function JobApplicationForm({
       dateOfBirth: `${data.dobMonth}/${data.dobDay}/${data.dobYear}`,
       signature: data.signature,
       bidForm: data.bidForm,
+      authorizeBackgroundCheck: data.authorizeBackgroundCheck,
     });
 
     setSubmitting(false);

@@ -66,6 +66,9 @@ export const jobApplicationSchema = z.object({
   // Signature
   signature: z.string().min(1, "Signature is required"),
   bidForm: z.string().optional(),
+  authorizeBackgroundCheck: z.boolean().refine((val) => val === true, {
+    message: "You must authorize Fiki Transit to pull your background data",
+  }),
 });
 
 export type JobApplicationFormValues = z.infer<typeof jobApplicationSchema>;
