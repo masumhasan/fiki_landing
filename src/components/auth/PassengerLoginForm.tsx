@@ -81,9 +81,9 @@ export function PassengerLoginForm() {
           <label htmlFor="password" className="text-sm font-semibold text-foreground">
             Password
           </label>
-          <a href="#forgotPassword" className="text-xs font-medium text-muted-foreground transition-colors hover:text-foreground">
+          <Link href="/forgot-password" className="text-xs font-medium text-muted-foreground transition-colors hover:text-foreground">
             Forgot Password?
-          </a>
+          </Link>
         </div>
         <div className="relative">
           <input
