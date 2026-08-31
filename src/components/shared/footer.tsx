@@ -36,6 +36,18 @@ export default function Footer() {
                 <Mail className="w-5 h-5 text-primary" />
                 reservations@fikitransit.com
               </a>
+              <a href="mailto:billing@fikitransit.com" className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 text-sm font-medium text-secondary hover:text-primary transition-colors">
+                <Mail className="w-5 h-5 text-primary" />
+                billing@fikitransit.com
+              </a>
+              <a href="mailto:Info@fikitransit.com" className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 text-sm font-medium text-secondary hover:text-primary transition-colors">
+                <Mail className="w-5 h-5 text-primary" />
+                Info@fikitransit.com
+              </a>
+              <a href="mailto:driver@fikitransit.com" className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 text-sm font-medium text-secondary hover:text-primary transition-colors">
+                <Mail className="w-5 h-5 text-primary" />
+                driver@fikitransit.com
+              </a>
             </div>
           </div>
 
