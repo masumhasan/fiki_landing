@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ShieldCheck, UserCheck, ShieldAlert, Phone, RefreshCw, Car, Check, CalendarDays, ExternalLink } from "lucide-react";
+import { ShieldCheck, UserCheck, ShieldAlert, Phone, PhoneCall, RefreshCw, Car, Check, CalendarDays, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getPassengerToken, getPassengerUser, clearPassengerSession, PassengerUser } from "@/lib/auth";
 import { getMyApplicationApi } from "@/lib/api";
@@ -28,10 +28,15 @@ interface Application {
 function EmergencyPanel({ dispatchNumber }: { dispatchNumber: string }) {
   return (
     <section className="rounded-2xl border border-destructive/20 bg-destructive/4 p-5 shadow-[0_4px_14px_rgba(239,68,68,.02)]">
-      <div className="flex items-center gap-2 text-destructive">
-        <ShieldAlert aria-hidden="true" className="size-4.5" />
-        <h2 className="text-sm font-semibold">Emergency Support</h2>
-      </div>
+      <a
+        href="tel:911"
+        className="inline-flex items-center gap-2 text-destructive hover:underline focus:outline-none focus:ring-2 focus:ring-destructive/20 rounded-md cursor-pointer transition-colors"
+        title="Call 911 (Emergency)"
+      >
+        <ShieldAlert aria-hidden="true" className="size-4.5 shrink-0" />
+        <h2 className="text-sm font-semibold">Emergency contact</h2>
+        <PhoneCall aria-hidden="true" className="size-3.5 shrink-0 ml-0.5" />
+      </a>
       <p className="mt-3 text-xs font-bold text-foreground">
         FIKI Dispatch
       </p>
