@@ -66,6 +66,7 @@ export const requestRideSchema = z.object({
   signatureDate: z.string().optional().or(z.literal("")),
   printedName: z.string().min(2, "Printed name is required"),
   relationshipToPassenger: z.string().optional(),
+  requestSource: z.string().optional(),
 });
 
 export type RequestRideFormValues = z.infer<typeof requestRideSchema>;

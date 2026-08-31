@@ -92,6 +92,7 @@ export function RequestRideForm() {
         body: JSON.stringify({
           ...data,
           passengerId: user.id,
+          requestSource: "LANDING",
         }),
       });
 
