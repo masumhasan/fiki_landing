@@ -110,7 +110,7 @@ export function QuoteCard({ trip, onUpdated }: QuoteCardProps) {
           <div className="mt-4 rounded-xl bg-muted px-4 py-3 space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-foreground">Quoted Fare</span>
-              <span className="text-lg font-bold text-primary">${trip.quotedFare.toFixed(2)}</span>
+              <span className="text-lg font-bold text-primary">${trip.quotedFare.toFixed(2)} <span className="text-xs font-normal text-muted-foreground">/ trip</span></span>
             </div>
             {trip.quoteNote && (
               <p className="text-xs text-muted-foreground">{trip.quoteNote}</p>
@@ -118,7 +118,7 @@ export function QuoteCard({ trip, onUpdated }: QuoteCardProps) {
             {trip.counterOffer !== undefined && (
               <div className="flex items-center justify-between pt-1 border-t border-border mt-2">
                 <span className="text-xs text-muted-foreground">Your Counter Offer</span>
-                <span className="text-sm font-semibold text-purple-700">${trip.counterOffer.toFixed(2)}</span>
+                <span className="text-sm font-semibold text-purple-700">${trip.counterOffer.toFixed(2)} <span className="text-xs font-normal text-muted-foreground">/ trip</span></span>
               </div>
             )}
           </div>
@@ -128,7 +128,7 @@ export function QuoteCard({ trip, onUpdated }: QuoteCardProps) {
           <div className="mt-4 rounded-xl bg-green-50 border border-green-200 px-4 py-3">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-green-800">Agreed Fare</span>
-              <span className="text-lg font-bold text-green-700">${trip.fare.toFixed(2)}</span>
+              <span className="text-lg font-bold text-green-700">${trip.fare.toFixed(2)} <span className="text-xs font-normal text-green-600">/ trip</span></span>
             </div>
           </div>
         )}
@@ -193,7 +193,7 @@ export function QuoteCard({ trip, onUpdated }: QuoteCardProps) {
             </div>
 
             <p className="mb-4 text-sm text-muted-foreground">
-              Admin quoted <span className="font-semibold text-foreground">${trip.quotedFare?.toFixed(2)}</span>. Enter your preferred amount below.
+              Admin quoted <span className="font-semibold text-foreground">${trip.quotedFare?.toFixed(2)}</span> per single trip. Enter your preferred amount per trip below.
             </p>
 
             <div className="space-y-4">
