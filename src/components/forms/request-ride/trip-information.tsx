@@ -27,6 +27,9 @@ export function TripInformation() {
   return (
     <SectionCard number="02" title="Trip Information">
       <div className="flex flex-col gap-8">
+        <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-3.5 text-xs text-blue-900 flex items-center gap-2">
+          <span className="font-semibold text-blue-950">🕒 Central Time Zone Notice:</span> All dates and pickup/return times are processed and evaluated in US Central Time (America/Chicago).
+        </div>
         {/* Trip Type Radio Selection */}
         <Controller
           control={control}
