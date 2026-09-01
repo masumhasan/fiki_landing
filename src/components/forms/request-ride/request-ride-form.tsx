@@ -91,6 +91,15 @@ export function RequestRideForm() {
         },
         body: JSON.stringify({
           ...data,
+          returnPickupAddress: data.tripType === "round-trip"
+            ? (data.returnPickupAddress?.trim() || data.destinationAddress?.trim())
+            : data.returnPickupAddress,
+          returnDestinationAddress: data.tripType === "round-trip"
+            ? (data.returnDestinationAddress?.trim() || data.pickupAddress?.trim())
+            : data.returnDestinationAddress,
+          returnPickupTime: data.tripType === "round-trip"
+            ? (data.returnPickupTime?.trim() || "05:00 PM")
+            : data.returnPickupTime,
           passengerId: user.id,
           requestSource: "LANDING",
         }),
