@@ -36,6 +36,7 @@ function EmergencyPanel({ dispatchNumber }: { dispatchNumber: string }) {
         <ShieldAlert aria-hidden="true" className="size-4.5 shrink-0" />
         <h2 className="text-sm font-semibold">Emergency contact</h2>
         <PhoneCall aria-hidden="true" className="size-3.5 shrink-0 ml-0.5" />
+        <span className="text-xs font-bold">911</span>
       </a>
       <p className="mt-3 text-xs font-bold text-foreground">
         FIKI Dispatch
