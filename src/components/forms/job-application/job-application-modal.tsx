@@ -15,6 +15,7 @@ import { Eye, EyeOff, ChevronRight, LogOut, ShieldAlert, UserCheck } from "lucid
 import Link from "next/link";
 import { clearPassengerSession, getPassengerUser, savePassengerSession, PassengerUser } from "@/lib/auth";
 import { registerDriverApi } from "@/lib/api";
+import { sanitizePhoneInput } from "@/lib/utils";
 
 export function JobApplicationModal({
   onDriverSignupSuccess,
@@ -240,9 +241,10 @@ export function JobApplicationModal({
                 id="modal-phone"
                 type="tel"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+1 (555) 000-0000"
+                onChange={(e) => setPhone(sanitizePhoneInput(e.target.value))}
+                placeholder="Phone Number"
               />
+              <p className="mt-1 text-[0.7rem] text-muted-foreground">Only digits (0-9) and &apos;+&apos; sign allowed (e.g. +13125550123)</p>
               {errors.phone && (
                 <FieldError errors={[{ message: errors.phone }]} />
               )}

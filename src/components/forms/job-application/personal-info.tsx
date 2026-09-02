@@ -2,6 +2,7 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { sanitizePhoneInput } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -211,7 +212,7 @@ export function PersonalInfoSection() {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor={field.name}>
-                Numbers <span className="text-destructive">*</span>
+                Phone Number <span className="text-destructive">*</span>
               </FieldLabel>
               <Input
                 type="tel"
@@ -219,7 +220,9 @@ export function PersonalInfoSection() {
                 id={field.name}
                 aria-invalid={fieldState.invalid}
                 placeholder="Phone Number"
+                onChange={(e) => field.onChange(sanitizePhoneInput(e.target.value))}
               />
+              <p className="mt-1 text-[0.7rem] text-muted-foreground">Only digits (0-9) and &apos;+&apos; sign allowed (e.g. +13125550123)</p>
               {fieldState.invalid && (
                 <FieldError errors={[fieldState.error]} />
               )}

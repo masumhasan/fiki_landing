@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { SectionCard } from "./section-card";
 import { useFormContext, Controller } from "react-hook-form";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
+import { sanitizePhoneInput } from "@/lib/utils";
 
 export function PassengerInformation() {
   const { control } = useFormContext();
@@ -66,8 +67,10 @@ export function PassengerInformation() {
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
-                  placeholder="(555) 000-0000"
+                  placeholder="Phone Number"
+                  onChange={(e) => field.onChange(sanitizePhoneInput(e.target.value))}
                 />
+                <p className="mt-1 text-[0.7rem] text-muted-foreground">Only digits (0-9) and &apos;+&apos; sign allowed (e.g. +13125550123)</p>
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
@@ -135,8 +138,10 @@ export function PassengerInformation() {
                   {...field}
                   id={field.name}
                   aria-invalid={fieldState.invalid}
-                  placeholder="(555) 000-0000"
+                  placeholder="Phone Number"
+                  onChange={(e) => field.onChange(sanitizePhoneInput(e.target.value))}
                 />
+                <p className="mt-1 text-[0.7rem] text-muted-foreground">Only digits (0-9) and &apos;+&apos; sign allowed (e.g. +13125550123)</p>
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
