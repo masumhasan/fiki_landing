@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const requestRideSchema = z.object({
   // Passenger Information
+  passengerAvatarUrl: z.string().optional(),
   fullName: z.string().min(2, "Full name is required"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
   confirmDob: z.boolean().optional(),
