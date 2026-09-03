@@ -11,6 +11,7 @@ import { getPassengerUser } from "@/lib/auth";
 import { submitJobApplicationApi } from "@/lib/api";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { uploadBase64Image } from "@/lib/uploadBase64";
 
 import { PersonalInfoSection } from "./personal-info";
 import { JobDetailsSection } from "./job-details";
@@ -116,6 +117,10 @@ export function JobApplicationForm({
       : data.position.toLowerCase().includes("stretcher")
       ? "STRETCHER"
       : "AMBULATORY";
+
+    if (data.signature && data.signature.startsWith("data:image/")) {
+      data.signature = await uploadBase64Image(data.signature, "signatures");
+    }
 
     const res = await submitJobApplicationApi({
       fullName,

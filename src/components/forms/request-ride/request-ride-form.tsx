@@ -6,6 +6,7 @@ import { requestRideSchema, type RequestRideFormValues } from "@/lib/validations
 
 import { API_BASE_URL } from "@/lib/api";
 import { getPassengerToken, getPassengerUser } from "@/lib/auth";
+import { uploadBase64Image } from "@/lib/uploadBase64";
 import { PassengerInformation } from "./passenger-information";
 import { TripInformation } from "./trip-information";
 import { MobilityNeeds } from "./mobility-needs";
@@ -81,6 +82,10 @@ export function RequestRideForm() {
       if (!token || !user) {
         alert("Please sign in before submitting a ride request.");
         return;
+      }
+
+      if (data.signature && data.signature.startsWith("data:image/")) {
+        data.signature = await uploadBase64Image(data.signature, "signatures", token);
       }
 
       const res = await fetch(`${API_BASE_URL}/trips`, {
