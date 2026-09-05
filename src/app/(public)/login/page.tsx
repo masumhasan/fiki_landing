@@ -102,11 +102,11 @@ export default function PassengerLoginPage() {
 
             <footer className="mx-auto mt-5 w-full max-w-130 text-center text-xs text-muted-foreground">
               <nav aria-label="Legal links" className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5">
-                <a className="transition-colors hover:text-primary" href="#privacy">Privacy Policy</a>
+                <a className="transition-colors hover:text-primary" href="/privacy">Privacy Policy</a>
                 <span aria-hidden>•</span>
-                <a className="transition-colors hover:text-primary" href="#terms">Terms of Service</a>
+                <a className="transition-colors hover:text-primary" href="/terms">Terms of Service</a>
                 <span aria-hidden>•</span>
-                <a className="transition-colors hover:text-primary" href="#help">Help Center</a>
+                <a className="transition-colors hover:text-primary" href="/help-center">Help Center</a>
               </nav>
               <p className="mt-2 text-muted-foreground/60">
                 © {new Date().getFullYear()} FIKI Transit. All rights reserved.
@@ -118,3 +118,5 @@ export default function PassengerLoginPage() {
     </main>
   );
 }
+
+

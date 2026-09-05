@@ -138,6 +138,15 @@ export async function getDispatchNumberApi(token: string) {
   }
 }
 
+export async function getCrmContentApi() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/settings/crm-content`);
+    return await res.json();
+  } catch {
+    return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to fetch CRM content" } };
+  }
+}
+
 export async function getMyApplicationApi(token: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/landing/my-application`, {
