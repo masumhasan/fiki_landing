@@ -114,11 +114,11 @@ export function RequestRideForm() {
       if (result.success) {
         alert("Ride request submitted successfully! You will receive a quote from our team shortly.");
       } else {
-        alert("Ride request submitted! You will receive a quote from our team shortly.");
+        alert(result.error?.message || "Failed to submit ride request. Please try again.");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Submission error:", err);
-      alert("Ride request submitted! You will receive a quote from our team shortly.");
+      alert(err?.message || "An error occurred while submitting your ride request. Please try again.");
     }
   };
 
