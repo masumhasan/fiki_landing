@@ -84,8 +84,23 @@ export default function Footer() {
             ))}
           </nav>
 
-          <p className="text-xs font-semibold text-secondary">
-            © 2024, Fiki Transit. All Right Reserved.
+          {/* Legal Links */}
+          <nav aria-label="Legal links" className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground">
+            <Link className="transition-colors hover:text-primary" href="/privacy">
+              Privacy Policy
+            </Link>
+            <span aria-hidden className="text-muted-foreground/60">•</span>
+            <Link className="transition-colors hover:text-primary" href="/terms">
+              Terms of Service
+            </Link>
+            <span aria-hidden className="text-muted-foreground/60">•</span>
+            <Link className="transition-colors hover:text-primary" href="/help-center">
+              Help Center
+            </Link>
+          </nav>
+
+          <p className="text-xs font-semibold text-muted-foreground/80">
+            © {new Date().getFullYear()} FIKI Transit. All rights reserved.
           </p>
         </div>
       </div>
