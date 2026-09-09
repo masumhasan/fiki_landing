@@ -93,6 +93,17 @@ export async function getMyTripsApi(token: string, page = 1, limit = 20) {
   }
 }
 
+export async function getPassengerTripDetailApi(token: string, tripId: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/trips/${tripId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return await res.json();
+  } catch {
+    return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to fetch trip details" } };
+  }
+}
+
 export async function cancelTripApi(token: string, tripId: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/trips/${tripId}/cancel`, {

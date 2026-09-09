@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { LoaderCircle, X } from "lucide-react";
+import { LoaderCircle, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { respondToQuoteApi } from "@/lib/api";
 import { getPassengerToken } from "@/lib/auth";
@@ -18,6 +19,9 @@ interface QuoteCardProps {
     fare?: number;
     createdAt: string;
     scheduledTime?: string;
+    fullName?: string;
+    phoneNumber?: string;
+    passengerId?: any;
   };
   onUpdated: () => void;
 }
@@ -92,8 +96,17 @@ export function QuoteCard({ trip, onUpdated }: QuoteCardProps) {
           </span>
         </div>
 
+        {/* Passenger Info */}
+        <div className="mt-4 flex items-center gap-2 text-sm text-foreground font-medium">
+          <User className="size-4 text-muted-foreground" />
+          <span>{trip.fullName || trip.passengerId?.fullName || "Passenger"}</span>
+          <span className="text-muted-foreground text-xs font-normal">
+            {trip.phoneNumber || trip.passengerId?.phone ? `(${trip.phoneNumber || trip.passengerId?.phone})` : ""}
+          </span>
+        </div>
+
         {/* Route */}
-        <div className="mt-4 space-y-2">
+        <div className="mt-3 space-y-2">
           <div className="flex items-start gap-2.5">
             <span className="mt-0.5 size-2 rounded-full bg-primary flex-shrink-0" aria-hidden />
             <p className="text-sm text-foreground leading-snug">{trip.pickupLocation.address}</p>
@@ -169,6 +182,17 @@ export function QuoteCard({ trip, onUpdated }: QuoteCardProps) {
             </Button>
           </div>
         )}
+
+        <div className="mt-4 pt-4 border-t border-border">
+          <Link href={`/portal/ride-details/${trip._id}`} className="block">
+            <Button
+              variant="outline"
+              className="w-full rounded-xl cursor-pointer"
+            >
+              Ride Details
+            </Button>
+          </Link>
+        </div>
       </article>
 
       {/* Counter offer modal */}
