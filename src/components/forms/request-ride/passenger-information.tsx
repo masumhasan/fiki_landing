@@ -5,6 +5,7 @@ import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { sanitizePhoneInput } from "@/lib/utils";
 import { useState, useRef } from "react";
 import { Camera, Loader2 } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 export function PassengerInformation() {
   const { control, setValue, watch } = useFormContext();
@@ -22,10 +23,8 @@ export function PassengerInformation() {
     formData.append("category", "passenger-avatars");
 
     try {
-      // NOTE: Adjust API URL based on actual frontend-to-backend URL setup
-      // Next.js might rewrite or we might just use the absolute backend URL
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-      const res = await fetch(`${API_URL}/upload/public-image`, {
+      const uploadEndpoint = `${API_BASE_URL.replace(/\/v1$/, "")}/upload/public-image`;
+      const res = await fetch(uploadEndpoint, {
         method: "POST",
         body: formData,
       });
