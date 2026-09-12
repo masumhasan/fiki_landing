@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { getCrmContentApi } from "@/lib/api";
 
 type CrmSection = "privacyPolicy" | "termsOfService" | "helpCenter";
@@ -193,36 +191,14 @@ export function CrmViewer({ section, title }: CrmViewerProps) {
     });
   }, [section]);
 
-  const subtitle =
-    section === "privacyPolicy"
-      ? "PRIVACY POLICY"
-      : section === "termsOfService"
-      ? "TERMS OF SERVICE"
-      : "HELP CENTER";
-
   return (
     <div className="min-h-screen bg-[#f4f7fb] py-10 px-4 sm:px-6 lg:px-10 xl:px-12">
       <div className="mx-auto w-full max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px]">
-        {/* Centered Brand Header matching sample UI */}
+        {/* Page Header */}
         <div className="mb-8 flex flex-col items-center justify-center text-center">
-          <Link href="/" className="group flex flex-col items-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white p-2.5 shadow-[0_4px_20px_rgba(11,43,88,0.06)] border border-slate-100 transition-transform group-hover:scale-105">
-              <Image
-                src="/logo.png"
-                alt="FIKI Transit"
-                width={48}
-                height={48}
-                className="h-11 w-11 object-contain"
-                priority
-              />
-            </div>
-            <span className="mt-3 text-2xl md:text-3xl font-black tracking-wider text-[#0b2b58]">
-              FIKI TRANSIT
-            </span>
-          </Link>
-          <span className="mt-1 text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-[#e5a00d]">
-            {subtitle}
-          </span>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-[#0b2b58]">
+            {title}
+          </h1>
         </div>
 
         {/* Content Card matching sample UI */}

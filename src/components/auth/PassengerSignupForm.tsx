@@ -102,7 +102,7 @@ export function PassengerSignupForm() {
           id="phone"
           type="tel"
           autoComplete="tel"
-          placeholder="+1 (608) 000-0000"
+          placeholder="+1 (800) 000-0000"
           className="h-12 w-full rounded-full border border-input bg-muted px-4 text-sm text-foreground transition-colors placeholder:text-muted-foreground hover:border-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10"
           {...register("phone")}
         />
@@ -175,7 +175,7 @@ export function PassengerSignupForm() {
       <p className="mt-4 text-center text-sm text-muted-foreground">
         Already have an account?{" "}
         <Link href="/login" className="font-semibold text-primary hover:text-primary/80 transition-colors">
-          Sign in
+          Sign In
         </Link>
       </p>
     </form>
