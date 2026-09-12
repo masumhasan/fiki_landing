@@ -1,11 +1,15 @@
-import { CheckCircle2 } from "lucide-react";
+import { Calendar, FileText, Lock } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { PassengerLoginForm } from "@/components/auth/PassengerLoginForm";
 
-const portalBenefits = ["Secure Booking", "Real-Time Quotes", "24/7 Support"];
+const portalBenefits = [
+  { label: "Secure Booking", icon: Lock },
+  { label: "Real-Time Quotes", icon: FileText },
+  { label: "Easy Ride Management", icon: Calendar },
+];
 
 export const metadata: Metadata = {
   title: "Passenger Sign In | FIKI Transit",
@@ -39,25 +43,33 @@ export default function PassengerLoginPage() {
         <div className="relative z-10 flex h-full flex-col px-[7%] py-[5vh]">
           <Brand />
 
-          <div className="mt-[11vh]">
-            <h1 className="text-[clamp(2.5rem,4vw,3.75rem)] font-bold leading-[1.04] tracking-[-0.04em]">
-              Welcome Back,
-              <span className="mt-2 block text-primary">Passenger</span>
+          <div className="mt-[9vh]">
+            <h1 className="text-[clamp(2.5rem,4vw,3.75rem)] font-bold leading-[1.04] tracking-[-0.04em] text-white">
+              Welcome to
+              <span className="mt-2 block text-primary">FIKI Transit</span>
             </h1>
-            <p className="mt-6 max-w-md text-[clamp(1rem,1.35vw,1.25rem)] leading-relaxed text-secondary-foreground/70">
-              Access your ride quotes, manage bookings, and track your transportation schedule.
+            <p className="mt-5 max-w-md text-[clamp(1rem,1.3vw,1.2rem)] font-medium leading-relaxed text-secondary-foreground/90">
+              A simple way to book rides, view real-time quotes, and manage transportation requests.
+            </p>
+            <p className="mt-3 max-w-md text-[clamp(0.875rem,1.1vw,1rem)] leading-relaxed text-secondary-foreground/70">
+              For passengers, family members, case managers, guardians, and IRIS consultants.
             </p>
 
-            <ul className="mt-8 flex flex-wrap gap-2.5" aria-label="Portal benefits">
-              {portalBenefits.map((benefit) => (
-                <li
-                  key={benefit}
-                  className="flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-3.5 py-1.5 text-xs font-medium text-secondary-foreground xl:text-sm"
-                >
-                  <CheckCircle2 aria-hidden className="size-3.5 text-primary" />
-                  {benefit}
-                </li>
-              ))}
+            <ul className="mt-7 flex flex-wrap gap-2.5 xl:gap-3" aria-label="Portal benefits">
+              {portalBenefits.map((benefit) => {
+                const Icon = benefit.icon;
+                return (
+                  <li
+                    key={benefit.label}
+                    className="flex items-center gap-2.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs xl:text-sm"
+                  >
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-secondary">
+                      <Icon aria-hidden className="size-3.5 stroke-[2.5]" />
+                    </span>
+                    <span>{benefit.label}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
