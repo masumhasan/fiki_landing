@@ -13,11 +13,11 @@ export default function PassengerForgotPasswordPage() {
     <main className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md overflow-hidden rounded-3xl border border-border bg-card p-7 shadow-2xl">
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-3 mb-4">
-            <span className="grid size-11 place-items-center rounded-xl bg-muted">
-              <Image src="/desklogo.png" alt="" width={44} height={44} className="size-9 object-contain" />
+          <Link href="/" className="inline-flex items-center gap-3 mb-4 transition-opacity hover:opacity-90" aria-label="FIKI Transit Home">
+            <span className="grid size-11 place-items-center rounded-xl border border-border/80 bg-card p-1 shadow-xs">
+              <Image src="/fiki-logo.png" alt="FIKI Transit" width={44} height={44} className="size-8 object-contain" />
             </span>
-            <span className="text-lg font-bold tracking-[-0.02em] text-secondary">FIKI TRANSIT</span>
+            <span className="text-lg font-black tracking-[-0.03em] text-secondary">FIKI TRANSIT</span>
           </Link>
           <h1 className="text-2xl font-bold text-foreground">Reset Password</h1>
           <p className="mt-1.5 text-xs text-muted-foreground">

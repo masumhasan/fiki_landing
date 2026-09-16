@@ -14,13 +14,26 @@ export const metadata: Metadata = {
 
 function Brand() {
   return (
-    <Link href="/" className="flex items-center gap-3">
-      <span className="grid size-12 place-items-center rounded-[15px] bg-card">
-        <Image src="/desklogo.png" alt="" width={48} height={48} className="size-10 object-contain" priority />
-      </span>
-      <div className="leading-none">
-        <p className="text-xl font-bold tracking-[-0.02em] text-primary-foreground">FIKI TRANSIT</p>
-        <p className="mt-1.5 text-xs font-semibold tracking-[0.16em] text-primary">DRIVER ONBOARDING</p>
+    <Link
+      href="/"
+      className="group flex flex-col items-center text-center transition-opacity hover:opacity-90"
+      aria-label="FIKI Transit Home"
+    >
+      <Image
+        src="/fiki-logo.png"
+        alt="FIKI Transit Logo"
+        width={80}
+        height={80}
+        className="size-16 sm:size-20 object-contain transition-transform duration-200 group-hover:scale-105 drop-shadow-xs"
+        priority
+      />
+      <div className="mt-2.5 leading-none">
+        <p className="text-xl font-black tracking-[-0.03em] text-secondary sm:text-[22px]">
+          FIKI TRANSIT
+        </p>
+        <p className="mt-1.5 text-[11px] font-bold tracking-[0.18em] text-primary uppercase">
+          DRIVER ONBOARDING
+        </p>
       </div>
     </Link>
   );
@@ -36,10 +49,8 @@ export default function DriverLoginPage() {
         <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 rounded-full bg-primary/8 translate-y-1/3 -translate-x-1/3" />
         <div className="pointer-events-none absolute right-0 top-[38%] h-20 w-5 rounded-l-full bg-primary/20" />
 
-        <div className="relative z-10 flex h-full flex-col px-[7%] py-[5vh]">
-          <Brand />
-
-          <div className="mt-[11vh]">
+        <div className="relative z-10 flex h-full flex-col px-[7%] py-[6vh]">
+          <div className="mt-[4vh] xl:mt-[6vh]">
             <h1 className="text-[clamp(2.5rem,4vw,3.75rem)] font-bold leading-[1.04] tracking-[-0.04em]">
               Welcome Back,
               <span className="mt-2 block text-primary">Driver Partner</span>
@@ -75,19 +86,12 @@ export default function DriverLoginPage() {
       {/* Right panel — form */}
       <section className="h-svh max-w-full overflow-x-hidden overflow-y-auto lg:ml-[50%]">
         <div className="flex min-h-full min-w-0 max-w-full flex-col px-5 py-5 sm:px-8 lg:px-10 lg:py-7 xl:px-14">
-          {/* Mobile logo */}
-          <Link href="/" className="mb-6 flex items-center gap-3 lg:hidden">
-            <span className="grid size-11 place-items-center rounded-xl bg-muted">
-              <Image src="/desklogo.png" alt="" width={48} height={48} className="size-9 object-contain" priority />
-            </span>
-            <div className="leading-none text-secondary">
-              <p className="text-lg font-bold tracking-[-0.02em]">FIKI TRANSIT</p>
-              <p className="mt-1.5 text-[0.65rem] font-semibold tracking-[0.16em] text-primary">DRIVER PORTAL</p>
+          <div className="my-auto min-w-0 max-w-full py-6">
+            <div className="mx-auto mb-6 flex w-full max-w-130 justify-center">
+              <Brand />
             </div>
-          </Link>
 
-          <div className="my-auto min-w-0 max-w-full">
-            <div className="mx-auto w-full max-w-130 rounded-[22px] border border-border bg-card px-6 py-7 sm:px-8 sm:py-8">
+            <div className="mx-auto w-full max-w-130 rounded-[22px] border border-border bg-card px-6 py-7 sm:px-8 sm:py-8 shadow-xs">
               <div className="mb-6">
                 <h2 className="text-2xl font-bold tracking-[-0.03em] text-foreground">Sign In</h2>
                 <p className="mt-1.5 text-sm text-muted-foreground sm:text-base">
@@ -117,5 +121,3 @@ export default function DriverLoginPage() {
     </main>
   );
 }
-
-
