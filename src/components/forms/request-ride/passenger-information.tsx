@@ -6,6 +6,7 @@ import { sanitizePhoneInput } from "@/lib/utils";
 import { useState, useRef } from "react";
 import { Camera, Loader2 } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
+import { uploadOptimizedFile, ACCEPTED_IMAGE_TYPES } from "@/lib/imageOptimization";
 
 export function PassengerInformation() {
   const { control, setValue, watch } = useFormContext();
@@ -18,27 +19,20 @@ export function PassengerInformation() {
     if (!file) return;
 
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("category", "passenger-avatars");
 
     try {
-      const uploadEndpoint = `${API_BASE_URL.replace(/\/v1$/, "")}/upload/public-image`;
-      const res = await fetch(uploadEndpoint, {
-        method: "POST",
-        body: formData,
+      const s3Url = await uploadOptimizedFile(file, {
+        category: "passenger-avatars",
+        preset: "avatar",
+        isPublic: true,
       });
-      const data = await res.json();
-      if (data.success && data.data?.url) {
-        setValue("passengerAvatarUrl", data.data.url, { shouldValidate: true });
-      } else {
-        alert(data.error?.message || "Upload failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to upload image.");
+      setValue("passengerAvatarUrl", s3Url, { shouldValidate: true });
+    } catch (err: any) {
+      console.error("Avatar upload failed:", err);
+      alert(err?.message || "Failed to upload image.");
     } finally {
       setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -68,7 +62,7 @@ export function PassengerInformation() {
           </div>
           <input 
             type="file" 
-            accept="image/*" 
+            accept={ACCEPTED_IMAGE_TYPES} 
             className="hidden" 
             ref={fileInputRef} 
             onChange={handleFileChange} 
