@@ -2,12 +2,12 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.fiki
 
 // ── Auth ─────────────────────────────────────────────────────────────────────
 
-export async function registerRiderApi(name: string, email: string, password: string, phone?: string) {
+export async function registerRiderApi(name: string, email: string, password: string, phone?: string, otp?: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, phone, role: "USER" }),
+      body: JSON.stringify({ name, email, password, phone, role: "USER", otp }),
     });
     return await res.json();
   } catch {
@@ -15,16 +15,42 @@ export async function registerRiderApi(name: string, email: string, password: st
   }
 }
 
-export async function registerDriverApi(name: string, email: string, password: string, phone?: string) {
+export async function registerDriverApi(name: string, email: string, password: string, phone?: string, otp?: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, phone, role: "DRIVER" }),
+      body: JSON.stringify({ name, email, password, phone, role: "DRIVER", otp }),
     });
     return await res.json();
   } catch {
     return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to connect to registration server" } };
+  }
+}
+
+export async function sendRegistrationOtpApi(email: string, name?: string, role: "USER" | "DRIVER" = "USER") {
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/send-registration-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, name, role }),
+    });
+    return await res.json();
+  } catch {
+    return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to send verification code" } };
+  }
+}
+
+export async function verifyRegistrationOtpApi(email: string, otp: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth/verify-registration-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp }),
+    });
+    return await res.json();
+  } catch {
+    return { success: false, error: { code: "NETWORK_ERROR", message: "Failed to verify code" } };
   }
 }
 
