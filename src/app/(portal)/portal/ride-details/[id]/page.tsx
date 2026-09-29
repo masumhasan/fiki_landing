@@ -104,6 +104,11 @@ export default function PassengerRideDetails({
 
   const { text: statusText, color: statusColor } = statusLabel(trip.status);
   const isRoundTrip = trip.tripType === "round-trip";
+  const isRecurring =
+    trip.schedule === "recurring" ||
+    trip.tripType === "recurring" ||
+    (Array.isArray(trip?.recurringDays) && trip.recurringDays.length > 0);
+  const recurringDaysList: string[] = Array.isArray(trip?.recurringDays) ? trip.recurringDays : [];
   
   const effectiveFare =
     typeof trip?.fare === "number" && !isNaN(trip.fare) && trip.fare > 0
@@ -191,6 +196,28 @@ export default function PassengerRideDetails({
                   <div><p className="text-xs font-bold text-slate-500 mb-1">Trip Type</p><p className="text-sm font-semibold capitalize text-slate-900">{trip.tripType.replace("-", " ")}</p></div>
                   <div><p className="text-xs font-bold text-slate-500 mb-1">Schedule</p><p className="text-sm font-semibold capitalize text-slate-900">{trip.schedule.replace("-", " ")}</p></div>
                 </div>
+
+                {isRecurring && (
+                  <div className="mb-6">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#8190a5] mb-2">
+                      Recurring Days
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {recurringDaysList.length > 0 ? (
+                        recurringDaysList.map((day: string) => (
+                          <span
+                            key={day}
+                            className="rounded-xl border border-blue-200 bg-blue-50/80 px-3 py-1 text-xs font-semibold text-blue-700 shadow-xs"
+                          >
+                            {day}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-xs text-slate-400">—</span>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 <div className="space-y-6 relative before:absolute before:inset-y-3 before:left-3.5 before:w-px before:bg-slate-200">
                   <div className="relative flex gap-4">
