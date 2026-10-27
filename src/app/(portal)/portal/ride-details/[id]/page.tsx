@@ -32,6 +32,7 @@ function statusLabel(status: string): { text: string; color: string } {
     case "IN_PROGRESS": return { text: "In Progress", color: "blue" };
     case "COMPLETED": return { text: "Completed", color: "green" };
     case "CANCELLED": return { text: "Cancelled", color: "red" };
+    case "MISSED": return { text: "Missed", color: "red" };
     default: return { text: status, color: "amber" };
   }
 }
